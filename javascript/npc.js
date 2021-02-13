@@ -8,6 +8,14 @@ class Npc extends Hero {
         }
     };
 
+    npcMove(delta){
+        let dirx = -1
+        if (dirx < 0){
+            this.facing = 2
+        }
+        this.move(delta, dirx, 0)
+    }
+
     
   
 }
@@ -17,8 +25,8 @@ class Npcs{
         this.all = [];
       }
     
-    newNpc(map, x, y, facing, sprite){
-        let p = new Npc(map, x, y, facing, sprite)
+    newNpc(map, x, y, facing, sprite, npcs){
+        let p = new Npc(map, x, y, facing, sprite, npcs)
         this.all.push(p)
         return p
     }

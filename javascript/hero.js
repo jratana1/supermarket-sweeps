@@ -59,14 +59,16 @@ Hero.prototype._collide = function (delta, dirx, diry) {
         this.map.isSolidTileAtXY(this.hitBox()["right"], this.hitBox()["bottom"]) ||
         this.map.isSolidTileAtXY(this.hitBox()["left"], this.hitBox()["bottom"])
         //loop through all hexes with NPCs
-        
+     
     let npcCollision = this.npcs.all.reduce(function (res, npc) {
-                            let npcCollision = this.npcCollision(npc)
-                                return npcCollision || res
+                            if (npc !== this) {
+                                    let npcCollision = this.npcCollision(npc)
+                                    return npcCollision || res
+                                }
                             }.bind(this), false);
     
     if (!collision && !npcCollision) { return; }
-    
+
         if (diry > 0) {
             row = this.map.getRow(this.hitBox()["bottom"]);
             this.y = -Hero.SPEED*delta + this.y
