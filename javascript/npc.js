@@ -1,11 +1,11 @@
 class Npc extends Hero {
-    constructor(map, x, y, facing, image, npcs) {
+    constructor(map, x, y, facing, image, chars) {
         super(map);
         this.x = x
         this.y = y
         this.width = map.tsize;
         this.height = map.tsize;
-        this.npcs = npcs
+        this.chars = chars
         // facing = R=0 U=1 L=2 D=3
         this.facing = facing
         this.image = Loader.getImage(image)
@@ -83,24 +83,20 @@ class Npc extends Hero {
     }; 
 };
 
-class Npcs{
+class Characters{
     constructor() {
         this.all = [];
       }
     
-    newNpc(map, x, y, facing, sprite, npcs){
-        let p = new Npc(map, x, y, facing, sprite, npcs)
+    newCharacter(map, x, y, facing, sprite, chars){
+        let p = new Npc(map, x, y, facing, sprite, chars)
         this.all.push(p)
         return p
     }
 
-    get allNpcs(){
+    get allCharacters(){
         return this.all
       }
-
-    get numberOfNpcs(){
-      return this.npcs.length
-    }
 }
 // function aiMove(obj) {
 //     // measures distance and direction between player and object.

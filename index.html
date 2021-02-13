@@ -186,10 +186,10 @@ Game.init = function () {
     this.tileAtlas = Loader.getImage('tiles')
     this.itemAtlas = Loader.getImage('items')
     this.interiorsAtlas = Loader.getImage('interiors')
-    this.npcs = new Npcs()
-    this.hero = new Hero(map, 100, 100, 3, 'bob', this.npcs)
-    this.bill1= this.npcs.newNpc(map, 500, 350, 3, 'bob', this.npcs)
-    this.bill2= this.npcs.newNpc(map, 300, 350, 3, 'bob', this.npcs)
+    this.chars = new Characters()
+    this.hero = new Hero(map, 100, 100, 3, 'bob', this.chars)
+    this.bill1= this.chars.newCharacter(map, 500, 350, 3, 'bob', this.chars)
+    this.bill2= this.chars.newCharacter(map, 300, 350, 3, 'bob', this.chars)
 };
 
 Game.update = function (delta) {

@@ -1,10 +1,10 @@
-function Hero(map, x, y, facing, image, npcs) {
+function Hero(map, x, y, facing, image, chars) {
     this.map = map;
     this.x = x;
     this.y = y;
     this.width = map.tsize;
     this.height = map.tsize;
-    this.npcs = npcs
+    this.chars = chars
     // facing = R=0 U=1 L=2 D=3
     this.facing = facing
     this.image = Loader.getImage(image)
@@ -60,7 +60,7 @@ Hero.prototype._collide = function (delta, dirx, diry) {
         this.map.isSolidTileAtXY(this.hitBox()["left"], this.hitBox()["bottom"])
         //loop through all hexes with NPCs
      
-    let npcCollision = this.npcs.all.reduce(function (res, npc) {
+    let npcCollision = this.chars.all.reduce(function (res, npc) {
                             if (npc !== this) {
                                     let npcCollision = this.npcCollision(npc)
                                     return npcCollision || res
