@@ -1,5 +1,5 @@
 class Npc extends Hero {
-    constructor(map, x, y, facing, image, chars) {
+    constructor(map, x, y, facing, image, chars, type) {
         super(map);
         this.x = x
         this.y = y
@@ -12,42 +12,35 @@ class Npc extends Hero {
         this.canMove = true;
         this.waiting = false;
         this.moveTimer = 0;
-      }
-      npcHitBox(){
-        return {
-        left: this.x - this.width/2,
-        right: this.x + this.width/2 -1,
-        top: this.y - this.height/2,
-        bottom: this.y + this.height -1
-        }
-    };
+        this.type = type
+      };
 
-    // npcMove(delta){
-    //     let dirx = -1
-    //     if (dirx < 0){
-    //         this.facing = 2
+    //   npcHitBox(){
+    //     return {
+    //     left: this.x - this.width/2,
+    //     right: this.x + this.width/2 -1,
+    //     top: this.y - this.height/2,
+    //     bottom: this.y + this.height -1
     //     }
-    //     this.move(delta, dirx, 0)
     // };
 
     aiMove(delta) {
-            let dx, dy; 
             switch(this.facing){
                 case 0:
-                    dx= 1
-                    dy= 0
+                    this.dirx= 1
+                    this.diry= 0
                     break;
                 case 1:
-                    dx= 0
-                    dy= -1 
+                    this.dirx= 0
+                    this.diry= -1 
                     break;
                 case 2:
-                    dx= -1
-                    dy= 0
+                    this.dirx= -1
+                    this.diry= 0
                     break;
                 case 3:
-                    dx= 0
-                    dy= 1
+                    this.dirx= 0
+                    this.diry= 1
                     break;
             }
 
@@ -59,7 +52,7 @@ class Npc extends Hero {
               this.restStepTimer();
             } else if (!this.waiting && this.moveTimer > 0) {
               //Move to preset direction
-              this.move(delta, dx, dy)
+              this.move(delta, this.dirx, this.diry)
               //subtract timer
               this.moveTimer--;
               //if timer is empty, switch to waiting and reset timer.
@@ -88,8 +81,8 @@ class Characters{
         this.all = [];
       }
     
-    newCharacter(map, x, y, facing, sprite, chars){
-        let p = new Npc(map, x, y, facing, sprite, chars)
+    newCharacter(map, x, y, facing, sprite, chars, type){
+        let p = new Npc(map, x, y, facing, sprite, chars, type)
         this.all.push(p)
         return p
     }

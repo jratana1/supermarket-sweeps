@@ -1,4 +1,4 @@
-function Hero(map, x, y, facing, image, chars) {
+function Hero(map, x, y, facing, image, chars, type) {
     this.map = map;
     this.x = x;
     this.y = y;
@@ -8,13 +8,23 @@ function Hero(map, x, y, facing, image, chars) {
     // facing = R=0 U=1 L=2 D=3
     this.facing = facing
     this.image = Loader.getImage(image)
+    this.type 
 }
-Hero.prototype.hitBox = function(){
-    return {
-    left: this.x - this.width/2,
-    right: this.x + this.width/2 -1,
-    top: this.y + this.height/2,
-    bottom: this.y + this.height -1
+Hero.prototype.hitBox = function(type){
+    if (this.type === "hero"){
+        return {
+        left: this.x - this.width/2,
+        right: this.x + this.width/2 -1,
+        top: this.y + this.height/2,
+        bottom: this.y + this.height -1
+        }
+    } else if (this.type === "npc") {
+        return {
+            left: this.x - this.width/2,
+            right: this.x + this.width/2 -1,
+            top: this.y - this.height/2,
+            bottom: this.y + this.height -1
+        }
     }
 };
 
@@ -36,17 +46,18 @@ Hero.prototype.move = function (delta, dirx, diry) {
     this._collide(delta, dirx, diry);
 };
 
-Hero.prototype.npcCollision = function (npc){ 
-    let npcHitBox = npc.npcHitBox()
+Hero.prototype.objCollision = function (obj){ 
+    let objHitBox = obj.hitBox()
     let heroHitBox = this.hitBox()
 
-    if (npcHitBox.left < heroHitBox.right&&
-           npcHitBox.right > heroHitBox.left &&
-           npcHitBox.top < heroHitBox.bottom &&
-           npcHitBox.bottom > heroHitBox.top) {
+    if (objHitBox.left < heroHitBox.right&&
+        objHitBox.right > heroHitBox.left &&
+        objHitBox.top < heroHitBox.bottom &&
+        objHitBox.bottom > heroHitBox.top) {
             return true
-        }
+    } else {
             return false
+    }
 }
 
 Hero.prototype._collide = function (delta, dirx, diry) {
@@ -61,11 +72,16 @@ Hero.prototype._collide = function (delta, dirx, diry) {
         //loop through all hexes with NPCs
      
     let npcCollision = this.chars.all.reduce(function (res, npc) {
+                            let tmp;
                             if (npc !== this) {
-                                    let npcCollision = this.npcCollision(npc)
-                                    return npcCollision || res
-                                }
-                            }.bind(this), false);
+                                    tmp = this.objCollision(npc)       
+                                    }
+                            else {
+                                    return false
+                            }
+                            return res || tmp;
+                        }.bind(this), false)
+                         
     
     if (!collision && !npcCollision) { return; }
 
@@ -90,11 +106,11 @@ Hero.prototype._collide = function (delta, dirx, diry) {
 Hero.prototype.pickUp = function () {
     let row, col;
     let buffer = 5
-
+    let rowAdjust = 10
     switch (this.facing) {
         case 0:
             col = this.map.getCol(this.hitBox()["right"]+buffer);
-            row = this.map.getRow(this.y);
+            row = this.map.getRow(this.y + rowAdjust);
             break;
         case 1:
             col = this.map.getCol(this.x);
@@ -102,7 +118,7 @@ Hero.prototype.pickUp = function () {
             break;
         case 2:
             col = this.map.getCol(this.hitBox()["left"]-buffer);
-            row = this.map.getRow(this.y);
+            row = this.map.getRow(this.y + rowAdjust);
             break;
         case 3:
             col = this.map.getCol(this.x);
