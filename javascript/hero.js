@@ -13,10 +13,10 @@ function Hero(map, x, y, facing, image, chars, type) {
 Hero.prototype.hitBox = function(type){
     if (this.type === "hero"){
         return {
-        left: this.x - this.width/2,
-        right: this.x + this.width/2 -1,
-        top: this.y + this.height/2,
-        bottom: this.y + this.height -1
+            left: this.x - this.width/2,
+            right: this.x + this.width/2 -1,
+            top: this.y + this.height/2,
+            bottom: this.y + this.height -1
         }
     } else if (this.type === "npc") {
         return {
