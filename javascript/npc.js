@@ -15,15 +15,6 @@ class Npc extends Hero {
         this.type = type
       };
 
-    //   npcHitBox(){
-    //     return {
-    //     left: this.x - this.width/2,
-    //     right: this.x + this.width/2 -1,
-    //     top: this.y - this.height/2,
-    //     bottom: this.y + this.height -1
-    //     }
-    // };
-
     aiMove(delta) {
             switch(this.facing){
                 case 0:
@@ -52,7 +43,8 @@ class Npc extends Hero {
               this.restStepTimer();
             } else if (!this.waiting && this.moveTimer > 0) {
               //Move to preset direction
-              this.move(delta, this.dirx, this.diry)
+ 
+                this.move(delta, this.dirx, this.diry)
               //subtract timer
               this.moveTimer--;
               //if timer is empty, switch to waiting and reset timer.

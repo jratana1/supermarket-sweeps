@@ -8,7 +8,7 @@ function Hero(map, x, y, facing, image, chars, type) {
     // facing = R=0 U=1 L=2 D=3
     this.facing = facing
     this.image = Loader.getImage(image)
-    this.type 
+    this.type = type
 }
 Hero.prototype.hitBox = function(type){
     if (this.type === "hero"){
@@ -71,10 +71,10 @@ Hero.prototype._collide = function (delta, dirx, diry) {
         this.map.isSolidTileAtXY(this.hitBox()["left"], this.hitBox()["bottom"])
         //loop through all hexes with NPCs
      
-    let npcCollision = this.chars.all.reduce(function (res, npc) {
+    let objCollision = this.chars.all.reduce(function (res, obj) {
                             let tmp;
-                            if (npc !== this) {
-                                    tmp = this.objCollision(npc)       
+                            if (obj !== this) {
+                                    tmp = this.objCollision(obj)       
                                     }
                             else {
                                     return false
@@ -83,7 +83,7 @@ Hero.prototype._collide = function (delta, dirx, diry) {
                         }.bind(this), false)
                          
     
-    if (!collision && !npcCollision) { return; }
+    if (!collision && !objCollision) { return; }
 
         if (diry > 0) {
             row = this.map.getRow(this.hitBox()["bottom"]);
