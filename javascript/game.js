@@ -16,8 +16,9 @@ let currentStepLoopIndex = 0;
 let frameCount = 0;
 
 Game.tick = function (elapsed) {
-    window.requestAnimationFrame(this.tick);
-
+    if(!stop){
+        window.requestAnimationFrame(this.tick);
+    }
     // clear previous frame
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
