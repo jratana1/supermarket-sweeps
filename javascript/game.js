@@ -18,7 +18,6 @@ let frameCount = 0;
 let startTime = null,
     gameLength = 30000,
     isRunning = false;
- let text = "hello world";
 
 Game.tick = function (elapsed) {
     
@@ -45,7 +44,7 @@ Game.tick = function (elapsed) {
     // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill6");
     // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill2");
 
-    this.drawBubble(40, 400, this.ctx.measureText(text).width + 40, 50, 20, text);
+    this.drawBubble(106, 400, 425, 70, 20, text["greeting"]);
     
     this.ctx.font = "20px Arial";
     this.ctx.fillText("Shopping List", 660, 25);
@@ -164,6 +163,7 @@ Game._drawHeroWalkFrame = function (frameX, char) {
 
 
 let speech_flag = true
+let text = {greeting: "Hello, username input.  Use the arrow keys to move, ' S ' to interact.  You have 30 seconds to get all the items on your shopping list.  Press ' Enter ' to start.  Go!!!"};
 
 Game.drawBubble= function (x, y, w, h, radius, text) {
    if (speech_flag) {
@@ -189,6 +189,29 @@ Game.drawBubble= function (x, y, w, h, radius, text) {
    this.ctx.stroke();
    this.ctx.fillStyle = "#000";
    this.ctx.font = "15px Helvetica";
-   this.ctx.fillText(text, x + 20, y + 30);
+   
+   this.getLines(text).forEach(function (line,index) {
+        this.ctx.fillText(line, x + 20, y + 20 + (index*20))
+   }.bind(this))
    }
+}
+
+Game.getLines = function (text) {
+    let maxWidth = 385
+    var words = text.split(" ");
+    var lines = [];
+    var currentLine = words[0];
+
+    for (var i = 1; i < words.length; i++) {
+        var word = words[i];
+        var width = this.ctx.measureText(currentLine + " " + word).width;
+        if (width < maxWidth) {
+            currentLine += " " + word;
+        } else {
+            lines.push(currentLine);
+            currentLine = word;
+        }
+    }
+    lines.push(currentLine);
+    return lines;
 }

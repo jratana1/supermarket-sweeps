@@ -6,6 +6,7 @@ Keyboard.UP = 38;
 Keyboard.DOWN = 40;
 Keyboard.A = 65
 Keyboard.S = 83
+Keyboard.ENTER = 13
 Keyboard._keys = {};
 Keyboard._singleFire ={}
 
