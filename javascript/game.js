@@ -17,20 +17,28 @@ let frameCount = 0;
 
 let startTime = null,
     gameLength = 30000,
+    startTimer = false,
     isRunning = false;
 
 Game.tick = function (elapsed) {
+    if (speech_flag === true){
+        timeElapsed = 30000
+    }
     
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    if (!startTime) startTime = elapsed;
-
     // compute delta time in seconds -- also cap it
     let delta = (elapsed - this._previousElapsed) / 1000;
     delta = Math.min(delta, 0.25); // maximum delta of 250 ms
     this._previousElapsed = elapsed;
     
-    let timeElapsed = gameLength - (elapsed - startTime)
+    // if (!startTime) startTime = elapsed;
+    // timeElapsed = gameLength - (elapsed - startTime)
+
+    if (startTimer) {
+        if (!startTime) startTime = elapsed;
+        timeElapsed = gameLength - (elapsed - startTime)
+    }
 
     this.update(delta);
     this._drawLayer(0, this.tileAtlas)
@@ -116,7 +124,7 @@ Game.update = function (delta) {
     else if (Keyboard.isDown(Keyboard.UP)) { this.hero.facing = 1, diry = -1; }
     else if (Keyboard.isDown(Keyboard.DOWN)) { this.hero.facing = 3, diry = 1; }
     
-    if (Keyboard.isDown(Keyboard.ENTER)) {speech_flag = false}
+    if (Keyboard.isDown(Keyboard.ENTER)) {speech_flag = false, startTimer =true}
     
     this.hero.move(delta, dirx, diry);
     if (Keyboard.singleFire(Keyboard.S)) { this.hero.pickUp(), Keyboard._singleFire[Keyboard.S]= false;}
