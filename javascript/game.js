@@ -17,7 +17,7 @@ let frameCount = 0;
 let FPS =1000/60
 
 let startTime = null,
-    gameLength = 30000,
+    gameLength = 12000,
   isRunning = false;
 
 Game.tick = function (elapsed) {
@@ -47,10 +47,12 @@ Game.tick = function (elapsed) {
     
     this.ctx.font = "20px Arial";
     this.ctx.fillText("Shopping List", 660, 25);
-    
     this.ctx.font = "40px Arial";
-    this.ctx.fillText((timeElapsed*0.001).toFixed(0), 700, 525);
+    this.ctx.textAlign = "right";
+    this.ctx.fillText((timeElapsed*0.001).toFixed(0), 740, 525);
+    this.ctx.textAlign = "left";
 
+  
     frameCount++
     if (frameCount > 15) {
         currentStepLoopIndex++;
@@ -60,7 +62,7 @@ Game.tick = function (elapsed) {
         currentStepLoopIndex = 0;
     }
 
-    if( timeElapsed > 1){
+    if( timeElapsed > 20){
         window.requestAnimationFrame(this.tick);
     }
     }.bind(Game);

@@ -11,16 +11,31 @@
             padding: 35px;
             }
         #username {
-            position: fixed;
-            left: 350px;
-            top: 650px;
+            position: absolute;
+            left: 50px;
+            top: 540px;
+        }
+        .triangle {
+            position: relative;
+            text-align: center;
+            width : 832px;
+            height : 576px;
+            margin : auto;
+        }
+        body {
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <h1>Super Market Sweep</h1>
-    <canvas id="demo" width="832" height="576"></canvas>
-    <input type="text" id="username" name="username"></input>
+
+    <div class="triangle">
+        <canvas id="demo" width="832" height="576"></canvas>
+        <input type="text" id="username" name="username"></input>
+    </div>
+
+
 <script src="./javascript/loader.js"></script>
 <script src="./javascript/keyboard.js"></script>
 <script src="./javascript/timer.js"></script>
