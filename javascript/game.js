@@ -18,6 +18,7 @@ let frameCount = 0;
 let startTime = null,
     gameLength = 30000,
     isRunning = false;
+ let text = "hello world";
 
 Game.tick = function (elapsed) {
     
@@ -43,6 +44,8 @@ Game.tick = function (elapsed) {
     // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill7");
     // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill6");
     // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill2");
+
+    this.drawBubble(40, 400, this.ctx.measureText(text).width + 40, 50, 20, text);
     
     this.ctx.font = "20px Arial";
     this.ctx.fillText("Shopping List", 660, 25);
@@ -157,4 +160,35 @@ Game._drawHeroWalkFrame = function (frameX, char) {
                 this[`${char}`]["y"] - this[`${char}`]["height"], 
                 this[`${char}`]["width"]*2,
                 this[`${char}`]["height"]*2);
+}
+
+
+let speech_flag = true
+
+Game.drawBubble= function (x, y, w, h, radius, text) {
+   if (speech_flag) {
+    var r = x + w;
+   var b = y + h;
+
+   this.ctx.beginPath();
+   this.ctx.fillStyle = "white";
+   this.ctx.fill();
+   this.ctx.strokeStyle = "black";
+   this.ctx.lineWidth = "2";
+   this.ctx.moveTo(x + radius, y);
+
+   this.ctx.lineTo(r - radius, y);
+   this.ctx.quadraticCurveTo(r, y, r, y + radius);
+   this.ctx.lineTo(r, y + h-radius);
+   this.ctx.quadraticCurveTo(r, b, r - radius, b);
+   this.ctx.lineTo(x + radius, b);
+   this.ctx.quadraticCurveTo(x, b, x, b - radius);
+   this.ctx.lineTo(x, y + radius);
+   this.ctx.quadraticCurveTo(x, y, x + radius, y);
+   this.ctx.fill();
+   this.ctx.stroke();
+   this.ctx.fillStyle = "#000";
+   this.ctx.font = "15px Helvetica";
+   this.ctx.fillText(text, x + 20, y + 30);
+   }
 }
