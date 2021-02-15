@@ -14,11 +14,10 @@ Game.run = function (context) {
 const stepCycleLoop = [0, 1, 2, 3, 4 ,5];
 let currentStepLoopIndex = 0;
 let frameCount = 0;
-let FPS =1000/60
 
 let startTime = null,
-    gameLength = 12000,
-  isRunning = false;
+    gameLength = 30000,
+    isRunning = false;
 
 Game.tick = function (elapsed) {
     
@@ -35,12 +34,12 @@ Game.tick = function (elapsed) {
 
     this.update(delta);
     this._drawLayer(0, this.tileAtlas)
+    this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"npc3");
     this._drawLayer(1, this.interiorsAtlas)
     this._drawLayer(2, this.itemAtlas)
     this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"hero");
-    this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill1");
-    // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill5");
-    // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill4");
+    this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"npc1");
+    this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"npc2");
     // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill7");
     // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill6");
     // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill2");
@@ -62,7 +61,7 @@ Game.tick = function (elapsed) {
         currentStepLoopIndex = 0;
     }
 
-    if( timeElapsed > 20){
+    if( timeElapsed > 20 || true){
         window.requestAnimationFrame(this.tick);
     }
     }.bind(Game);
@@ -83,6 +82,9 @@ Game.load = function () {
         Loader.loadImage('tiles', './images/tiles2.png'),
         Loader.loadImage('items', './images/items.png'),
         Loader.loadImage('bob', './images/bob.png'),
+        Loader.loadImage('alex', './images/alex.png'),
+        Loader.loadImage('amelia', './images/amelia.png'),
+        Loader.loadImage('adam', './images/adam.png'),
         Loader.loadImage('interiors', './images/interiors.png')
     ];
 };
@@ -95,9 +97,9 @@ Game.init = function () {
     this.interiorsAtlas = Loader.getImage('interiors')
     this.chars = new Characters()
     this.hero = this.chars.newCharacter(map, 300, 250, 3, 'bob', this.chars, "hero")
-    this.bill1= this.chars.newCharacter(map, 200, 350, 3, 'bob', this.chars, "npc")
-    // this.bill2= this.chars.newCharacter(map, 300, 350, 3, 'bob', this.chars, "npc")
-    // this.bill4= this.chars.newCharacter(map, 150, 350, 3, 'bob', this.chars, "npc")
+    this.npc1= this.chars.newCharacter(map, 200, 350, 3, 'alex', this.chars, "npc")
+    this.npc2= this.chars.newCharacter(map, 300, 350, 3, 'amelia', this.chars, "npc")
+    this.npc3= this.chars.newCharacter(map, 520, 100, 3, 'adam', this.chars, "npc")
     // this.bill5= this.chars.newCharacter(map, 300, 50, 3, 'bob', this.chars, "npc")
     // this.bill6= this.chars.newCharacter(map, 200, 200, 3, 'bob', this.chars, "npc")
     // this.bill7= this.chars.newCharacter(map, 250, 450, 3, 'bob', this.chars, "npc")
@@ -115,8 +117,8 @@ Game.update = function (delta) {
     this.hero.move(delta, dirx, diry);
     if (Keyboard.singleFire(Keyboard.S)) { this.hero.pickUp(), Keyboard._singleFire[Keyboard.S]= false;}
 
-    this.bill1.aiMove(delta)
-    // this.bill4.aiMove(delta)
+    this.npc1.aiMove(delta)
+    this.npc2.aiMove(delta)
     // this.bill5.aiMove(delta)
     // this.bill6.aiMove(delta)
     // this.bill7.aiMove(delta)

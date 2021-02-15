@@ -28,7 +28,7 @@ Hero.prototype.hitBox = function(type){
     }
 };
 
-Hero.SPEED = 256; // pixels per second
+Hero.SPEED = 160; // pixels per second
 
 Hero.prototype.move = function (delta, dirx, diry) {
 
