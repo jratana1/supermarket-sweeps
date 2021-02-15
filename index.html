@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Gamedev Canvas Workshop</title>
+    <title>SuperMarket Sweeps!</title>
     <style>
     	* { padding: 0; margin: 0; }
     	canvas { background: #eee; display: block; margin: 0 auto; border: 1px solid black; }
@@ -10,12 +10,7 @@
             text-align: center;
             padding: 35px;
             }
-        #username {
-            position: absolute;
-            left: 50px;
-            top: 540px;
-        }
-        .triangle {
+        .signin {
             position: relative;
             text-align: center;
             width : 832px;
@@ -25,14 +20,31 @@
         body {
             text-align: center;
         }
+        .field {
+            position: absolute;
+            left: 50px;
+            top: 520px;
+        }
+        label {
+            display: block;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
     <h1>Super Market Sweep</h1>
 
-    <div class="triangle">
+    <div class="signin">
         <canvas id="demo" width="832" height="576"></canvas>
-        <input type="text" id="username" name="username"></input>
+        <div class=field>
+            <label for="username">User Name:</label>
+            <input type="text" id="username" name="username"></input>
+            <button type="submit" id=user_submit value="Submit">Submit</button>
+        </div>
+        <!-- <div class=field>
+            <label for="username">User Name:</label>
+            <input type="text" id="username" name="username"></input>
+        </div> -->
     </div>
 
 
