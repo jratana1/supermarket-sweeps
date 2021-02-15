@@ -60,7 +60,7 @@ Game.tick = function (elapsed) {
         currentStepLoopIndex = 0;
     }
 
-    if(!stop){
+    if( timeElapsed > 1){
         window.requestAnimationFrame(this.tick);
     }
     }.bind(Game);

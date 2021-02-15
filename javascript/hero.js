@@ -38,7 +38,7 @@ Hero.prototype.move = function (delta, dirx, diry) {
     
     // clamp values
     var maxX = (this.map.cols-2) * this.map.tsize;
-    var maxY = (this.map.rows-2) * this.map.tsize;
+    var maxY = (this.map.rows-4) * this.map.tsize;
     this.x = Math.max(0, Math.min(this.x, maxX));
     this.y = Math.max(0, Math.min(this.y, maxY));
 
