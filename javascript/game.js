@@ -60,6 +60,7 @@ Game.tick = function (elapsed) {
     this.ctx.textAlign = "right";
     this.ctx.fillText((timeElapsed*0.001).toFixed(0), 740, 525);
     this.ctx.textAlign = "left";
+    this.ctx.fillText('X', 675, 96);
 
   
     frameCount++
