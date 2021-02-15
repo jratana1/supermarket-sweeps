@@ -24,7 +24,7 @@ Game.tick = function (elapsed) {
     if (speech_flag === true){
         timeElapsed = 30000
     }
-    
+
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     // compute delta time in seconds -- also cap it
@@ -106,10 +106,10 @@ Game.init = function () {
     this.itemAtlas = Loader.getImage('items')
     this.interiorsAtlas = Loader.getImage('interiors')
     this.chars = new Characters()
-    this.hero = this.chars.newCharacter(map, 300, 250, 3, 'bob', this.chars, "hero")
+    this.hero = this.chars.newCharacter(map, 225, 58, 3, 'bob', this.chars, "hero")
     this.npc1= this.chars.newCharacter(map, 200, 350, 3, 'alex', this.chars, "npc")
     this.npc2= this.chars.newCharacter(map, 300, 350, 3, 'amelia', this.chars, "npc")
-    this.npc3= this.chars.newCharacter(map, 520, 100, 3, 'adam', this.chars, "npc")
+    this.npc3= this.chars.newCharacter(map, 520, 105, 3, 'adam', this.chars, "npc")
     // this.bill5= this.chars.newCharacter(map, 300, 50, 3, 'bob', this.chars, "npc")
     // this.bill6= this.chars.newCharacter(map, 200, 200, 3, 'bob', this.chars, "npc")
     // this.bill7= this.chars.newCharacter(map, 250, 450, 3, 'bob', this.chars, "npc")

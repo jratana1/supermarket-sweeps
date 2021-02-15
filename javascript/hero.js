@@ -9,6 +9,8 @@ function Hero(map, x, y, facing, image, chars, type) {
     this.facing = facing
     this.image = Loader.getImage(image)
     this.type = type
+    this.inventory = []
+    this.shoppingList = [{x:6,y:8}]
 }
 Hero.prototype.hitBox = function(type){
     if (this.type === "hero"){
@@ -128,6 +130,7 @@ Hero.prototype.pickUp = function () {
 
      let tile = this.map.getTile(col, row, 2);
      if (tile){
-         map.tiles[2][row * map.cols + col]= {}
+        this.inventory.push(map.tiles[2][row * map.cols + col]) 
+        map.tiles[2][row * map.cols + col]= {}
      }
 };
