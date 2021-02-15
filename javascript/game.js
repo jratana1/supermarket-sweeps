@@ -93,7 +93,7 @@ Game.load = function () {
 
 Game.init = function () {
     Keyboard.listenForEvents(
-        [Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, Keyboard.DOWN, Keyboard.A, Keyboard.S]);
+        [Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, Keyboard.DOWN, Keyboard.A, Keyboard.S, Keyboard.ENTER]);
     this.tileAtlas = Loader.getImage('tiles')
     this.itemAtlas = Loader.getImage('items')
     this.interiorsAtlas = Loader.getImage('interiors')
@@ -115,6 +115,8 @@ Game.update = function (delta) {
     else if (Keyboard.isDown(Keyboard.RIGHT)) { this.hero.facing = 0, dirx = 1; }
     else if (Keyboard.isDown(Keyboard.UP)) { this.hero.facing = 1, diry = -1; }
     else if (Keyboard.isDown(Keyboard.DOWN)) { this.hero.facing = 3, diry = 1; }
+    
+    if (Keyboard.isDown(Keyboard.ENTER)) {speech_flag = false}
     
     this.hero.move(delta, dirx, diry);
     if (Keyboard.singleFire(Keyboard.S)) { this.hero.pickUp(), Keyboard._singleFire[Keyboard.S]= false;}
