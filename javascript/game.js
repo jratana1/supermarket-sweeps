@@ -14,19 +14,24 @@ Game.run = function (context) {
 const stepCycleLoop = [0, 1, 2, 3, 4 ,5];
 let currentStepLoopIndex = 0;
 let frameCount = 0;
+let FPS =1000/60
 
+let startTime = null,
+    gameLength = 30000,
+  isRunning = false;
 
 Game.tick = function (elapsed) {
-    if(!stop){
-        window.requestAnimationFrame(this.tick);
-    }
-    // clear previous frame
+    
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    if (!startTime) startTime = elapsed;
 
     // compute delta time in seconds -- also cap it
-    var delta = (elapsed - this._previousElapsed) / 1000.0;
-    delta = Math.min(delta, 0.012); // maximum delta of 250 ms
+    let delta = (elapsed - this._previousElapsed) / 1000;
+    delta = Math.min(delta, 0.25); // maximum delta of 250 ms
     this._previousElapsed = elapsed;
+    
+    let timeElapsed = gameLength - (elapsed - startTime)
 
     this.update(delta);
     this._drawLayer(0, this.tileAtlas)
@@ -40,7 +45,11 @@ Game.tick = function (elapsed) {
     // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill6");
     // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill2");
     
+    this.ctx.font = "20px Arial";
     this.ctx.fillText("Shopping List", 660, 25);
+    
+    this.ctx.font = "40px Arial";
+    this.ctx.fillText((timeElapsed*0.001).toFixed(0), 700, 525);
 
     frameCount++
     if (frameCount > 15) {
@@ -49,6 +58,10 @@ Game.tick = function (elapsed) {
     }
     if (currentStepLoopIndex >= stepCycleLoop.length) {
         currentStepLoopIndex = 0;
+    }
+
+    if(!stop){
+        window.requestAnimationFrame(this.tick);
     }
     }.bind(Game);
 
@@ -75,7 +88,6 @@ Game.load = function () {
 Game.init = function () {
     Keyboard.listenForEvents(
         [Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, Keyboard.DOWN, Keyboard.A, Keyboard.S]);
-    this.ctx.font = "20px Arial";
     this.tileAtlas = Loader.getImage('tiles')
     this.itemAtlas = Loader.getImage('items')
     this.interiorsAtlas = Loader.getImage('interiors')
