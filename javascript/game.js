@@ -111,6 +111,7 @@ Game.init = function () {
     this.npc1= this.chars.newCharacter(map, 200, 350, 3, 'alex', this.chars, "npc")
     this.npc2= this.chars.newCharacter(map, 300, 350, 3, 'amelia', this.chars, "npc")
     this.npc3= this.chars.newCharacter(map, 520, 105, 3, 'adam', this.chars, "npc")
+    
     // this.bill5= this.chars.newCharacter(map, 300, 50, 3, 'bob', this.chars, "npc")
     // this.bill6= this.chars.newCharacter(map, 200, 200, 3, 'bob', this.chars, "npc")
     // this.bill7= this.chars.newCharacter(map, 250, 450, 3, 'bob', this.chars, "npc")
@@ -125,8 +126,22 @@ Game.update = function (delta) {
     else if (Keyboard.isDown(Keyboard.UP)) { this.hero.facing = 1, diry = -1; }
     else if (Keyboard.isDown(Keyboard.DOWN)) { this.hero.facing = 3, diry = 1; }
     
-    if (Keyboard.isDown(Keyboard.ENTER)) {speech_flag = false, startTimer =true}
+    if (Keyboard.isDown(Keyboard.ENTER)) {
+        speech_flag = false;
+        startTimer =true;
+        if (!musicFlag  && !firstTap) {
+            musicFlag=true
+            firstTap=true
+        }
+    }
     
+    if (musicFlag) {   
+        backgroundMusic = new sound("./sounds/Radiohead.ogg");
+        backgroundMusic.sound.loop = true
+        backgroundMusic.play();
+        musicFlag =false 
+    }
+
     this.hero.move(delta, dirx, diry);
     if (Keyboard.singleFire(Keyboard.S)) { this.hero.pickUp(), Keyboard._singleFire[Keyboard.S]= false;}
 
@@ -171,3 +186,8 @@ Game._drawHeroWalkFrame = function (frameX, char) {
                 this[`${char}`]["width"]*2,
                 this[`${char}`]["height"]*2);
 }
+
+
+var musicFlag= false;
+let backgroundMusic;
+let firstTap= false;
