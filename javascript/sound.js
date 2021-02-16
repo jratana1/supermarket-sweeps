@@ -1,3 +1,6 @@
+let clickSound = new sound("./sounds/click_002.ogg");
+let backgroundMusic = new sound("./sounds/Radiohead.ogg");
+
 function sound(src) {
     this.sound = document.createElement("audio");
     this.sound.src = src;

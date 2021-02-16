@@ -129,8 +129,9 @@ Hero.prototype.pickUp = function () {
         }
 
      let tile = this.map.getTile(col, row, 2);
-     if (tile){
+     if (tile["x"]){
         this.inventory.push(map.tiles[2][row * map.cols + col]) 
         map.tiles[2][row * map.cols + col]= {}
+        clickSound.play()
      }
 };

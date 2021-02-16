@@ -136,14 +136,14 @@ Game.update = function (delta) {
     }
     
     if (musicFlag) {   
-        backgroundMusic = new sound("./sounds/Radiohead.ogg");
         backgroundMusic.sound.loop = true
+        backgroundMusic.sound.volume = 0.3
         backgroundMusic.play();
         musicFlag =false 
     }
 
     this.hero.move(delta, dirx, diry);
-    if (Keyboard.singleFire(Keyboard.S)) { this.hero.pickUp(), Keyboard._singleFire[Keyboard.S]= false;}
+    if (Keyboard.singleFire(Keyboard.S)) {this.hero.pickUp(), Keyboard._singleFire[Keyboard.S]= false;}
 
     this.npc1.aiMove(delta)
     this.npc2.aiMove(delta)
@@ -189,5 +189,4 @@ Game._drawHeroWalkFrame = function (frameX, char) {
 
 
 var musicFlag= false;
-let backgroundMusic;
 let firstTap= false;
