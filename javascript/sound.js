@@ -1,4 +1,4 @@
-let clickSound = new sound("./sounds/click_002.ogg");
+let clickSound = new sound("./sounds/boop2.ogg");
 let backgroundMusic = new sound("./sounds/Radiohead.ogg");
 
 function sound(src) {
