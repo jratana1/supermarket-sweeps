@@ -8,6 +8,7 @@ let startTime = null,
     gameLength = 30000,
     startTimer = false
 let Game = {};
+timeElapsed =30000
 // start up function
 
 window.onload = function () {
@@ -30,10 +31,6 @@ Game.run = function (context) {
 };
 
 Game.tick = function (elapsed) {
-    if (speech_flag === true){
-        timeElapsed = 30000
-    }
-
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     // compute delta time in seconds -- also cap it
@@ -55,7 +52,7 @@ Game.tick = function (elapsed) {
     this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"npc1");
     this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"npc2");
 
-    Speech.drawBubble(106, 400, 425, 70, 20, text["greeting"]);
+    Speech.drawBubble(106, 400, 425, 70, 20, text);
     
     this.ctx.font = "20px Arial";
     this.ctx.fillText("Shopping List", 660, 25);
@@ -75,7 +72,11 @@ Game.tick = function (elapsed) {
         currentStepLoopIndex = 0;
     }
 
-    if( timeElapsed > 20 || true){
+    if( timeElapsed > 20){
+        window.requestAnimationFrame(this.tick);
+    } else {
+        this.over()
+        if (Keyboard.isDown(Keyboard.ENTER)) {this.reset(), Keyboard._keys[Keyboard.ENTER] = false}
         window.requestAnimationFrame(this.tick);
     }
     }.bind(Game);
@@ -103,6 +104,7 @@ Game.init = function () {
     this.npc1= this.chars.newCharacter(map, 200, 350, 3, 'alex', this.chars, "npc")
     this.npc2= this.chars.newCharacter(map, 300, 350, 3, 'amelia', this.chars, "npc")
     this.npc3= this.chars.newCharacter(map, 520, 105, 3, 'adam', this.chars, "npc")
+    text = textCatalogue["greeting"]
 };
 
 Game.update = function (delta) {
@@ -123,8 +125,6 @@ Game.update = function (delta) {
     }
     
     if (musicFlag) {   
-        backgroundMusic.sound.loop = true
-        backgroundMusic.sound.volume = 0.2
         backgroundMusic.play();
         musicFlag =false 
     }
@@ -169,12 +169,19 @@ Game._drawHeroWalkFrame = function (frameX, char) {
                 this[`${char}`]["width"]*2,
                 this[`${char}`]["height"]*2);
 }
-
+Game.over = function() {
+    text = "Game over.  Press 'enter' to play again?"
+    startTimer = false
+    speech_flag = true
+    timeElapsed = 0
+}
 
 Game.reset = function() {
     startTimer = false
     speech_flag = true;
     startTime= null
+    text = textCatalogue["greeting"]
+    timeElapsed = 30000
     map.tiles[2]= [
         {x:0,y:0}, {x:0,y:0}, {}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:1,y:6},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {}, {x:0,y:0}, {x:0,y:0},
         {x:0,y:0}, {x:0,y:0}, {}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},

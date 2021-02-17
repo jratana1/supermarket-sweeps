@@ -1,5 +1,7 @@
 let clickSound = new sound("./sounds/boop2.ogg");
 let backgroundMusic = new sound("./sounds/Radiohead.ogg");
+backgroundMusic.sound.loop = true
+backgroundMusic.sound.volume = 0.2
 
 function sound(src) {
     this.sound = document.createElement("audio");
