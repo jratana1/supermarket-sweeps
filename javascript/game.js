@@ -1,4 +1,22 @@
+//global vars
+const stepCycleLoop = [0, 1, 2, 3, 4 ,5];
+let currentStepLoopIndex = 0;
+let frameCount = 0;
+let musicFlag= false;
+let firstTap= false;
+let startTime = null,
+    gameLength = 30000,
+    startTimer = false
 let Game = {};
+// start up function
+
+window.onload = function () {
+    let context = document.getElementById('demo').getContext('2d');
+    context.webkitImageSmoothingEnabled = false;
+    context.mozImageSmoothingEnabled = false;
+    context.imageSmoothingEnabled = false;
+    Game.run(context);
+};
 
 Game.run = function (context) {
     this.ctx = context;
@@ -11,15 +29,6 @@ Game.run = function (context) {
     }.bind(this));
 };
 
-const stepCycleLoop = [0, 1, 2, 3, 4 ,5];
-let currentStepLoopIndex = 0;
-let frameCount = 0;
-
-let startTime = null,
-    gameLength = 30000,
-    startTimer = false,
-    isRunning = false;
-
 Game.tick = function (elapsed) {
     if (speech_flag === true){
         timeElapsed = 30000
@@ -31,9 +40,6 @@ Game.tick = function (elapsed) {
     let delta = (elapsed - this._previousElapsed) / 1000;
     delta = Math.min(delta, 0.25); // maximum delta of 250 ms
     this._previousElapsed = elapsed;
-    
-    // if (!startTime) startTime = elapsed;
-    // timeElapsed = gameLength - (elapsed - startTime)
 
     if (startTimer) {
         if (!startTime) startTime = elapsed;
@@ -48,9 +54,6 @@ Game.tick = function (elapsed) {
     this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"hero");
     this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"npc1");
     this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"npc2");
-    // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill7");
-    // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill6");
-    // this._drawHeroWalkFrame(stepCycleLoop[currentStepLoopIndex],"bill2");
 
     Speech.drawBubble(106, 400, 425, 70, 20, text["greeting"]);
     
@@ -77,17 +80,6 @@ Game.tick = function (elapsed) {
     }
     }.bind(Game);
 
-// start up function
-//
-
-window.onload = function () {
-    let context = document.getElementById('demo').getContext('2d');
-    context.webkitImageSmoothingEnabled = false;
-    context.mozImageSmoothingEnabled = false;
-    context.imageSmoothingEnabled = false;
-    Game.run(context);
-};
-
 Game.load = function () {
     return [
         Loader.loadImage('tiles', './images/tiles2.png'),
@@ -111,11 +103,6 @@ Game.init = function () {
     this.npc1= this.chars.newCharacter(map, 200, 350, 3, 'alex', this.chars, "npc")
     this.npc2= this.chars.newCharacter(map, 300, 350, 3, 'amelia', this.chars, "npc")
     this.npc3= this.chars.newCharacter(map, 520, 105, 3, 'adam', this.chars, "npc")
-    
-    // this.bill5= this.chars.newCharacter(map, 300, 50, 3, 'bob', this.chars, "npc")
-    // this.bill6= this.chars.newCharacter(map, 200, 200, 3, 'bob', this.chars, "npc")
-    // this.bill7= this.chars.newCharacter(map, 250, 450, 3, 'bob', this.chars, "npc")
-
 };
 
 Game.update = function (delta) {
@@ -137,7 +124,7 @@ Game.update = function (delta) {
     
     if (musicFlag) {   
         backgroundMusic.sound.loop = true
-        backgroundMusic.sound.volume = 0.3
+        backgroundMusic.sound.volume = 0.2
         backgroundMusic.play();
         musicFlag =false 
     }
@@ -147,10 +134,6 @@ Game.update = function (delta) {
 
     this.npc1.aiMove(delta)
     this.npc2.aiMove(delta)
-    // this.bill5.aiMove(delta)
-    // this.bill6.aiMove(delta)
-    // this.bill7.aiMove(delta)
-    // this.bill2.aiMove(delta)
 };
 
 Game._drawLayer = function (layer, atlas) {
@@ -188,5 +171,33 @@ Game._drawHeroWalkFrame = function (frameX, char) {
 }
 
 
-var musicFlag= false;
-let firstTap= false;
+Game.reset = function() {
+    startTimer = false
+    speech_flag = true;
+    startTime= null
+    map.tiles[2]= [
+        {x:0,y:0}, {x:0,y:0}, {}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:1,y:6},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {}, {}, {x:0,y:0}, {x:9,y:1}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:10,y:4}, {x:10,y:6}, {x:12,y:6}, {x:7,y:9}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:6,y:8}, {x:0,y:0}, {x:4,y:10}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {}, {}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {}, {x:2,y:8}, {x:3,y:2}, {x:0,y:0}, {x:0,y:0}, {x:9,y:11}, {x:6,y:3}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:10,y:5}, {x:0,y:0}, {x:8,y:8}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {}, {x:7,y:2}, {x:11,y:11}, {x:0,y:0}, {x:0,y:0}, {x:11, y:1}, {x:3,y:10}, {}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {}, {x:13,y:1}, {x:5,y:6}, {x:0,y:0}, {x:0,y:0}, {x:12,y:9}, {x:11,y:2}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:5,y:5}, {x:0,y:0}, {x:6,y:1}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {}, {x:1,y:7}, {x:11,y:3}, {x:0,y:0}, {x:0,y:0}, {x:5,y:2}, {x:12,y:2}, {x:0,y:0}, {x:0,y:0}, {x:2,y:2}, {x:8,y:2}, {x:0,y:0}, {x:0,y:0}, {x:3,y:4}, {x:11,y:12}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {}, {x:5,y:7}, {x:5,y:10}, {x:0,y:0}, {x:0,y:0}, {x:2,y:7}, {x:12,y:5}, {x:0,y:0}, {x:0,y:0}, {x:5,y:11}, {x:3,y:8}, {x:0,y:0}, {x:0,y:0}, {x:5,y:4}, {x:3,y:1}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:3,y:1}, {x:0,y:0}, {x:3,y:7}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {}, {x:4,y:7}, {x:4,y:10}, {x:0,y:0}, {x:0,y:0}, {x:11,y:10}, {x:7,y:3}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {}, {x:3,y:7}, {x:7,y:8}, {x:0,y:0}, {x:0,y:0}, {x:10,y:10}, {x:10,y:7}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:6,y:6}, {x:0,y:0}, {x:7,y:1}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {}, {x:0,y:0}, {x:3, y:12}, {x:6,y:8}, {x:0,y:0}, {x:0,y:0}, {x:9,y:10}, {x:2,y:6}, {x:0,y:0}, {x:0,y:0}, {x:7,y:7}, {x:6,y:1}, {x:0,y:0}, {x:0,y:0}, {x:9,y:5}, {x:7,y:5}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {}, {x:3,y:11}, {x:5,y:8}, {x:0,y:0}, {x:0,y:0}, {x:8,y:10}, {x:11,y:4}, {x:0,y:0}, {x:0,y:0}, {x:5,y:12}, {x:6,y:12}, {x:0,y:0}, {}, {x:1,y:9}, {x:11,y:8}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:7,y:7}, {x:0,y:0}, {x:3,y:4}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},
+        {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0},{x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}, {x:0,y:0}
+    ]
+    this.chars = new Characters()
+    this.hero = this.chars.newCharacter(map, 225, 58, 3, 'bob', this.chars, "hero")
+    this.npc1= this.chars.newCharacter(map, 200, 350, 3, 'alex', this.chars, "npc")
+    this.npc2= this.chars.newCharacter(map, 300, 350, 3, 'amelia', this.chars, "npc")
+    this.npc3= this.chars.newCharacter(map, 520, 105, 3, 'adam', this.chars, "npc")
+}

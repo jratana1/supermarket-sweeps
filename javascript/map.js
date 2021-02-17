@@ -1,4 +1,4 @@
-var map = {
+let map = {
     cols: 26,
     rows: 18,
     tsize: 32,

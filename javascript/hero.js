@@ -134,4 +134,5 @@ Hero.prototype.pickUp = function () {
         map.tiles[2][row * map.cols + col]= {}
         clickSound.play()
      }
+     console.log("picking up")
 };
