@@ -9,6 +9,7 @@ let startTime = null,
     startTimer = false
 let Game = {};
 timeElapsed =30000
+let muteButton = document.getElementById("mute")
 // start up function
 
 window.onload = function () {
@@ -71,14 +72,14 @@ Game.tick = function (elapsed) {
     if (currentStepLoopIndex >= stepCycleLoop.length) {
         currentStepLoopIndex = 0;
     }
-
-    if( timeElapsed > 20){
-        window.requestAnimationFrame(this.tick);
-    } else {
-        this.over()
-        if (Keyboard.isDown(Keyboard.ENTER)) {this.reset(), Keyboard._keys[Keyboard.ENTER] = false}
-        window.requestAnimationFrame(this.tick);
-    }
+    window.requestAnimationFrame(this.tick);
+    // if( timeElapsed > 20){
+    //     window.requestAnimationFrame(this.tick);
+    // } else {
+    //     this.over()
+    //     if (Keyboard.isDown(Keyboard.ENTER)) {this.reset(), Keyboard._keys[Keyboard.ENTER] = false}
+    //     window.requestAnimationFrame(this.tick);
+    // }
     }.bind(Game);
 
 Game.load = function () {
@@ -169,6 +170,10 @@ Game._drawHeroWalkFrame = function (frameX, char) {
                 this[`${char}`]["width"]*2,
                 this[`${char}`]["height"]*2);
 }
+Game.score = function(){
+
+}
+
 Game.over = function() {
     text = "Game over.  Press 'enter' to play again?"
     startTimer = false
