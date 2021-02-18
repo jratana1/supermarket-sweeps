@@ -10,7 +10,7 @@ function Hero(map, x, y, facing, image, chars, type) {
     this.image = Loader.getImage(image)
     this.type = type
     this.inventory = []
-    this.shoppingList = [{x:6,y:8}, {x:6,y:1}]
+    this.shoppingList = [{x:6,y:8}, {x:6,y:1}, {x:3,y:7}, {x:5,y:12}, {x:3,y:4}, {x:11, y:1}, {x:7,y:5}, {x:11,y:12}, {x:3,y:1}, {x:10,y:6}, {x:11,y:10}, {x:11,y:4}]
 }
 Hero.prototype.hitBox = function(type){
     if (this.type === "hero"){
@@ -135,4 +135,6 @@ Hero.prototype.pickUp = function () {
         clickSound.play()
      }
 };
+
+
 
