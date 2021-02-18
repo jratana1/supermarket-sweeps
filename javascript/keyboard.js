@@ -24,7 +24,7 @@ Keyboard.listenForEvents = function (keys) {
 Keyboard._onKeyDown = function (event) {
     var keyCode = event.keyCode;
     if (keyCode in this._keys) {
-        event.preventDefault();
+        // event.preventDefault();
         this._singleFire[keyCode] = false
         if (!this._keys[keyCode]){
             // declare single fire keys
@@ -37,7 +37,7 @@ Keyboard._onKeyDown = function (event) {
 Keyboard._onKeyUp = function (event) {
     var keyCode = event.keyCode;
     if (keyCode in this._keys) {
-        event.preventDefault();
+        // event.preventDefault();
         this._keys[keyCode] = false
         this._singleFire[keyCode] = false
     }

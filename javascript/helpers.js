@@ -9,4 +9,24 @@ function makeShoppingList(){
 
 function submitUser(){
     console.log("im here")
+    let username = document.getElementById("username").value
+
+    let user = {
+        username
+    }
+    
+    let config = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(user)
+    }
+
+    fetch(`http://localhost:3000/users`, config)
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+        })
 }
