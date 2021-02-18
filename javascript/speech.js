@@ -1,5 +1,5 @@
 let speech_flag = true
-let textCatalogue = {greeting: "Hello, username input.  Use the arrow keys to move, ' S ' to interact.  You have 30 seconds to get all the items on your shopping list.  Press ' Enter ' to start.  Go!!!"};
+let textCatalogue = {greeting: "Hello.  Use the arrow keys to move, ' S ' to interact.  You have 30 seconds to get all the items on your shopping list.  Press ' Enter ' to start.  Go!!!"};
 let text = ""
 class Speech {  
     static getLines = function (text) {

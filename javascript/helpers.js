@@ -5,5 +5,8 @@ function getRandomInt(max) {
 function makeShoppingList(){
     let num = getRandomInt(150)
     
-    
+}
+
+function submitUser(){
+    console.log("im here")
 }
