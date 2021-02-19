@@ -10,6 +10,7 @@ let startTime = null,
 let Game = {};
 timeElapsed =30000
 let muteButton = document.getElementById("mute")
+let session = {}
 // start up function
 
 window.onload = function () {
