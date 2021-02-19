@@ -24,10 +24,17 @@
             position: absolute;
             left: 50px;
             top: 520px;
+            display: flex;
+
         }
         label {
             display: block;
             text-align: left;
+        }
+        #mute {
+            position: absolute;
+            left: 215px;
+            top: 18px;
         }
     </style>
 </head>
@@ -40,10 +47,10 @@
             <div id=login>
                 <label for="username">User Name:</label>
                 <input type="text" id="username" name="username"></input>
-                <button onclick="submitUser()" type="submit" id=user_submit value="Submit">Submit</button>
-                <button onclick="mute()">Mute</button>
+                <button onclick="submitUser()" type="submit" id=user_submit value="Submit">Submit</button>     
             </div>
             <div id="mute">
+                <button onclick="mute()">Mute</button>
             </div>
         </div>
     </div>

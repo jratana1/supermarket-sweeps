@@ -28,5 +28,7 @@ function submitUser(){
         .then(res => res.json())
         .then(res => {
             console.log(res)
+
+            document.getElementById('login').innerHTML = `Logged in: ${res.data.attributes.username}`
         })
 }
