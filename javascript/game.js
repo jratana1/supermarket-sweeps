@@ -73,14 +73,14 @@ Game.tick = function (elapsed) {
     if (currentStepLoopIndex >= stepCycleLoop.length) {
         currentStepLoopIndex = 0;
     }
-    window.requestAnimationFrame(this.tick);
-    // if( timeElapsed > 20){
-    //     window.requestAnimationFrame(this.tick);
-    // } else {
-    //     this.over()
-    //     if (Keyboard.isDown(Keyboard.ENTER)) {this.reset(), Keyboard._keys[Keyboard.ENTER] = false}
-    //     window.requestAnimationFrame(this.tick);
-    // }
+    // window.requestAnimationFrame(this.tick);
+    if( timeElapsed > 20){
+        window.requestAnimationFrame(this.tick);
+    } else {
+        this.over()
+        if (Keyboard.isDown(Keyboard.ENTER)) {postScore(), this.reset(), Keyboard._keys[Keyboard.ENTER] = false}
+        window.requestAnimationFrame(this.tick);
+    }
     }.bind(Game);
 
 Game.load = function () {
