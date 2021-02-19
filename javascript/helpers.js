@@ -51,6 +51,14 @@ function postScore(){
     fetch(`http://localhost:3000/scores`, config)
         .then(res => res.json())
         .then(res => {
-           console.log("posting score")
+           console.log(res)
         })
 }
+
+// function highScores(){
+//     fetch(`http://localhost:3000/scores`, config)
+//         .then(res => res.json())
+//         .then(res => {
+//            console.log("getting score")
+//         })
+// }
