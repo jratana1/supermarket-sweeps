@@ -65,11 +65,9 @@ async function highScores(){
 function displayScores(){
     let list = document.getElementById('scorelist')
     list.innerText = ""
-    // if (Object.keys(highScore).length !== 0){
     highScore.data.forEach(element => {
         item= document.createElement('li')
         item.innerText = `${element.attributes.user.username}: ${element.attributes.score} pts`
         list.append(item)
     })
-// }
 }
