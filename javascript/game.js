@@ -110,6 +110,7 @@ Game.init = function () {
     this.npc2= this.chars.newCharacter(map, 300, 350, 3, 'amelia', this.chars, "npc")
     this.npc3= this.chars.newCharacter(map, 520, 105, 3, 'adam', this.chars, "npc")
     text = textCatalogue["greeting"]
+    
 };
 
 Game.update = function (delta) {

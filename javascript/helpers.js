@@ -3,8 +3,7 @@ function getRandomInt(max) {
   }
 
 function makeShoppingList(){
-    let num = getRandomInt(150)
-    
+    let num = getRandomInt(150)   
 }
 
 function submitUser(){
@@ -38,7 +37,6 @@ function postScore(){
     scoreObj = {
         score, username
     }
-
     let config = {
         method: 'POST',
         headers: {
@@ -47,7 +45,6 @@ function postScore(){
         },
         body: JSON.stringify(scoreObj)
     }
-
     fetch(`http://localhost:3000/scores`, config)
         .then(res => res.json())
         .then(res => {
@@ -55,22 +52,24 @@ function postScore(){
         })
 }
 
-function highScores(){
-    fetch(`http://localhost:3000/scores`)
+async function highScores(){
+    highScore = await fetch(`http://localhost:3000/scores`)
         .then(res => res.json())
         .then(res => {
            console.log("getting score")
-           highScore = res
+        return res
         })
+        displayScores()
 }
 
 function displayScores(){
     let list = document.getElementById('scorelist')
     list.innerText = ""
-    console.log(highScore)
+    // if (Object.keys(highScore).length !== 0){
     highScore.data.forEach(element => {
         item= document.createElement('li')
         item.innerText = `${element.attributes.user.username}: ${element.attributes.score} pts`
         list.append(item)
-    });
+    })
+// }
 }
