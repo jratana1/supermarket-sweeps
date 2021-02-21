@@ -51,14 +51,26 @@ function postScore(){
     fetch(`http://localhost:3000/scores`, config)
         .then(res => res.json())
         .then(res => {
-           console.log(res)
+           highscore = res
         })
 }
 
-// function highScores(){
-//     fetch(`http://localhost:3000/scores`, config)
-//         .then(res => res.json())
-//         .then(res => {
-//            console.log("getting score")
-//         })
-// }
+function highScores(){
+    fetch(`http://localhost:3000/scores`)
+        .then(res => res.json())
+        .then(res => {
+           console.log("getting score")
+           highScore = res
+        })
+}
+
+function displayScores(){
+    let list = document.getElementById('scorelist')
+    list.innerText = ""
+    console.log(highScore)
+    highScore.data.forEach(element => {
+        item= document.createElement('li')
+        item.innerText = `${element.attributes.user.username}: ${element.attributes.score} pts`
+        list.append(item)
+    });
+}

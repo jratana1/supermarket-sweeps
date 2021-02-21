@@ -5,12 +5,14 @@ let frameCount = 0;
 let musicFlag= false;
 let firstTap= false;
 let startTime = null,
-    gameLength = 30000,
+    gameLength = 2000,
     startTimer = false
 let Game = {};
 timeElapsed =30000
 let muteButton = document.getElementById("mute")
 let session = {}
+let highScore = {}
+
 // start up function
 
 window.onload = function () {
@@ -18,7 +20,7 @@ window.onload = function () {
     context.webkitImageSmoothingEnabled = false;
     context.mozImageSmoothingEnabled = false;
     context.imageSmoothingEnabled = false;
-    //fetch recent scores here
+    highScores()
     Game.run(context);
 };
 
@@ -74,14 +76,14 @@ Game.tick = function (elapsed) {
     if (currentStepLoopIndex >= stepCycleLoop.length) {
         currentStepLoopIndex = 0;
     }
-    window.requestAnimationFrame(this.tick);
-    // if( timeElapsed > 20){
-    //     window.requestAnimationFrame(this.tick);
-    // } else {
-    //     this.over()
-    //     if (Keyboard.isDown(Keyboard.ENTER)) {postScore(), this.reset(), Keyboard._keys[Keyboard.ENTER] = false}
-    //     window.requestAnimationFrame(this.tick);
-    // }
+    // window.requestAnimationFrame(this.tick);
+    if( timeElapsed > 20){
+        window.requestAnimationFrame(this.tick);
+    } else {
+        this.over()
+        if (Keyboard.isDown(Keyboard.ENTER)) {postScore(), this.reset(), displayScores(), Keyboard._keys[Keyboard.ENTER] = false}
+        window.requestAnimationFrame(this.tick);
+    }
     }.bind(Game);
 
 Game.load = function () {
