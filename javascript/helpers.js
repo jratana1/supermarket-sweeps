@@ -48,21 +48,20 @@ function postScore(){
     fetch(`http://localhost:3000/scores`, config)
         .then(res => res.json())
         .then(res => {
-           highscore = res
+           displayScores(res)
         })
 }
 
-async function highScores(){
-    highScore = await fetch(`http://localhost:3000/scores`)
+function highScores(){
+    fetch(`http://localhost:3000/scores`)
         .then(res => res.json())
         .then(res => {
-           console.log("getting score")
-        return res
+        displayScores(res)
         })
-        displayScores()
+        
 }
 
-function displayScores(){
+function displayScores(highScore){
     let list = document.getElementById('scorelist')
     list.innerText = ""
     highScore.data.forEach(element => {

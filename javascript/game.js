@@ -5,7 +5,7 @@ let frameCount = 0;
 let musicFlag= false;
 let firstTap= false;
 let startTime = null,
-    gameLength = 2000,
+    gameLength = 30000,
     startTimer = false
 let Game = {};
 timeElapsed =30000
@@ -21,6 +21,7 @@ window.onload = function () {
     context.mozImageSmoothingEnabled = false;
     context.imageSmoothingEnabled = false;
     highScores()
+
     Game.run(context);
 };
 
@@ -81,7 +82,7 @@ Game.tick = function (elapsed) {
         window.requestAnimationFrame(this.tick);
     } else {
         this.over()
-        if (Keyboard.isDown(Keyboard.ENTER)) {postScore(), this.reset(), displayScores(), Keyboard._keys[Keyboard.ENTER] = false}
+        if (Keyboard.isDown(Keyboard.ENTER)) {postScore(), this.reset(), Keyboard._keys[Keyboard.ENTER] = false}
         window.requestAnimationFrame(this.tick);
     }
     }.bind(Game);
